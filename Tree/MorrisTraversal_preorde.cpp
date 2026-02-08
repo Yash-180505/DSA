@@ -1,0 +1,58 @@
+#include<bits/stdc++.h>
+using namespace std;
+class Node{
+public:
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int d){
+        data = d;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+Node*FindPredecessor(Node*root){
+       if(root==NULL) return NULL;
+
+       Node*predecessor=root->left;
+       while(predecessor->right!=NULL && predecessor->right!=root){
+           predecessor=predecessor->right;
+       }
+
+       return predecessor;
+}
+void morrisTraversalPreOrder(Node*root){
+   if(root==NULL) return;
+     Node*curr=root;
+   while(curr!=NULL){
+      if(!curr->left){
+          cout<<curr->data<<" ";
+          curr=curr->right;
+      }
+      else{
+           Node*predecessor=FindPredecessor(curr);
+           if(predecessor->right==NULL){
+                 cout<<curr->data<<" ";
+               predecessor->right=curr;
+               curr=curr->left;
+           }else{
+              predecessor->right=NULL;
+         
+              curr=curr->right;
+           }
+      }
+   }
+}
+
+int main(){
+    Node* root = new Node(1);
+    root->left = new Node(2);
+    root->right = new Node(3);
+    root->left->left = new Node(4);
+    root->left->right = new Node(5);
+
+    morrisTraversalPreOrder(root);
+    return 0;
+}
