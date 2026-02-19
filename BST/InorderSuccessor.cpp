@@ -1,0 +1,71 @@
+#include<bits/stdc++.h>
+using namespace std;
+class Node{
+    public:
+       int data;
+       Node*left;
+       Node*right;
+       Node(int d){
+           this->data=d;
+           this->left=NULL;
+           this->right=NULL;
+       }
+};
+Node* insertIntoBST(Node*root ,int data){
+    if(root==NULL) {
+        root=new Node(data);
+        return root;
+}
+if(data >root->data){
+       root->right=insertIntoBST(root->right,data);
+
+}
+else{
+      root->left=insertIntoBST(root->left,data);
+}
+return root;
+    
+}
+void InorderBSt(Node*root){
+     if(root==NULL) return;
+     InorderBSt(root->left);
+     cout<<root->data<<" ";
+     InorderBSt(root->right);
+}
+void takeInput(Node*&root){
+    int data;
+    cin>>data;
+    while (data !=-1)
+    {
+      root=   insertIntoBST(root,data);
+         cin>>data;
+    }
+    
+}
+
+Node*InorderSuccessor(Node*root,int key){
+      Node*succ=NULL;
+      
+      while(root!=NULL){
+          if(key<root->data){
+             succ=root;
+             root=root->left;
+          }
+          else{
+             root=root->right;
+          }
+      }
+      return succ;
+}
+int main(){
+  Node*root=NULL;
+  cout<<"Enter the data to create BST:"<<endl;
+  takeInput(root);
+
+  cout<<"Inorder Traversal:-"<<endl;
+ InorderBSt(root);
+int key =30;
+ Node*succ=InorderSuccessor(root,key);
+ cout<<"Inorder Successor:"<<succ->data<<endl;
+
+}
