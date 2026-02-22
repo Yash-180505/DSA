@@ -7,7 +7,8 @@ class Node{
        Node*right;
        Node(int d){
           data=d;
-
+         left=NULL;
+         right=NULL;
        }
 };
 Node*LCA(Node*root,Node*p,Node*q){
