@@ -31,7 +31,6 @@ int heightTree(Node* root){
 bool BalanceTree(Node* root){
     return heightTree(root) != -1;
 }
-
 int main(){
 
     Node* root = new Node(1);
