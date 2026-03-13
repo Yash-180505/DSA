@@ -33,6 +33,7 @@ public:
         }
     }
 
+
     void print()
     {
         for (int i = 1; i <= size; i++)
@@ -40,6 +41,33 @@ public:
             cout << arr[i] << " ";
         }
         cout << endl;
+    }
+
+    void deleteFromHeap(){
+          if(size==0)cout<<"Nothing to Delete"<<endl;
+          
+          arr[1]=arr[size];
+          size--;
+          int i=1;
+          while(i<size){
+              int left=2*i;
+              int right=2*i+1;
+
+              if(arr[left]>arr[i] && left<size){
+                
+                   swap(arr[left],arr[i]);
+                   i=left;
+              }
+              else if(right<size && arr[i]<arr[right]){
+                  swap(arr[i],arr[right]);
+                  i=right;
+              }
+              else{
+                  return;
+              }
+          }
+
+           
     }
 };
 int main()
@@ -50,6 +78,12 @@ int main()
     h.insert(53);
     h.insert(52);
     h.insert(54);
-
+  cout<<"Before Delete Heap  ";
     h.print();
+    h.deleteFromHeap();
+cout<<"\nAfter Deletion in Heap  ";
+h.print();
+
+
 }
+//O(logn)
