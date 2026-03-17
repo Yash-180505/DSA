@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int KthSmallestElement(vector<int>arr,int k){
+int KthSmallestElement(vector<int>&arr,int k){
      priority_queue<int>max_heap;
      for(int i=0;i<k;i++){
    max_heap.push(arr[i]);
