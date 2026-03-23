@@ -1,42 +1,62 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-struct Node {
-    int data, i, j;
-};
+class node{
+public:
+    int data;
+    int i;
+    int j;
 
-struct compare {
-    bool operator()(Node a, Node b) {
-        return a.data > b.data;
+    node(int d,int row,int col){
+        data=d;
+        i=row;
+        j=col;
     }
 };
 
-vector<int> mergeKSortedArray(vector<vector<int>>& kArray, int k){
+class compare{
+public:
+    bool operator()(node* a ,node* b){
+        return a->data > b->data;
+    }
+};
 
-    priority_queue<Node, vector<Node>, compare> pq;
+vector<int> mergeKSortedArray(vector<vector<int>>& karray, int k){
+    priority_queue<node*,vector<node*>,compare> pq;
 
-    // push first element of each array
-    for(int i = 0; i < k; i++){
-        if(!kArray[i].empty()){
-            pq.push({kArray[i][0], i, 0});
+    for(int i=0;i<k;i++){
+        if(!karray[i].empty()){
+            node* tmp = new node(karray[i][0], i, 0);
+            pq.push(tmp);
         }
     }
 
     vector<int> ans;
 
     while(!pq.empty()){
-        Node temp = pq.top();
+        node* tmp = pq.top();
         pq.pop();
 
-        ans.push_back(temp.data);
+        ans.push_back(tmp->data);
 
-        int i = temp.i;
-        int j = temp.j;
+        int i = tmp->i;
+        int j = tmp->j;
 
-        if(j + 1 < kArray[i].size()){
-            pq.push({kArray[i][j+1], i, j+1});
+        if(j + 1 < karray[i].size()){
+            node* next = new node(karray[i][j+1], i, j+1);
+            pq.push(next);
         }
     }
 
     return ans;
+}
+
+int main(){
+    vector<vector<int>> karray = {{1,2,3},{4,5,6},{7,8,9}};
+
+    vector<int> ans = mergeKSortedArray(karray,3);
+
+    for(int i:ans){
+        cout<<i<<" ";
+    }
 }
